@@ -7,10 +7,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'collections' %}">Collections</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'collections' %}active{% endif %}" aria-current="page" href="{% url 'collections' %}">Collections</a>
           </li>
           {% if request.user.is_authenticated %}
             <li class="nav-item dropdown">
