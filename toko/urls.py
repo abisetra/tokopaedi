@@ -5,7 +5,7 @@ from .views.home import home
 from .views.product import productView
 from .views.auth import register, login, logout
 from .views.cart import addToCart, cartView, updateCart, deleteCartItem
-from .views.wishlist import wishlistView
+from .views.wishlist import wishlistView, addToWishlist, deleteWishlistItem
 
 
 urlpatterns = [
@@ -24,4 +24,6 @@ urlpatterns = [
     path('delete-cart-item', deleteCartItem, name='deletecartitem'),
 
     path('wishlist', wishlistView, name='wishlist'),
+    path('add-to-wishlist', addToWishlist, name='addToWishlist'),
+    path('delete-wishlist-item', deleteWishlistItem, name='deleteWishlistItem'),
 ]
