@@ -18,7 +18,7 @@
             <div class="col-md-12">
                 <div class="card shadow product_data">
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row ">
                             <div class="col-md-4">
                                 {% if products.tag %}
                                     <label class="product-viewtag">{{products.tag}}</label>
@@ -33,7 +33,7 @@
                                     {% endif %}
                                 </h2>
                                 <hr>
-                                <label class="me-3 ">Original Price : <s> Rp. {{ products.original_price | stringformat:'d'}}</s></label>
+                                <label class="me-3 ">Original Price :  Rp. <s> {{ products.original_price | stringformat:'d'}}</s></label>
                                 <label class="fw-bold ">Selling Price : Rp. {{ products.selling_price | stringformat:'d'}}</label>
                                 <p class="mt3">
                                     {{products.small_description}}

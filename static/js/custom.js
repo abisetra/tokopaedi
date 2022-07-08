@@ -43,7 +43,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(response)
-                alertify.success(response.status);
+                Swal.fire(response.status);
             }
          });
     });
@@ -63,7 +63,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(response)
-                alertify.success(response.status);
+                Swal.fire(response.status);
             }
          });
     });
@@ -104,7 +104,7 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: token
             },
             success: function (response) {
-                alertify.success(response.status);
+                Swal.fire(response.status);
                 $('.cartdata').load(location.href + " .cartdata");
                     
                 
@@ -128,7 +128,7 @@ $(document).ready(function () {
                 csrfmiddlewaretoken: token
             },
             success: function (response) {
-                alertify.success(response.status);
+                Swal.fire(response.status);
                 $('.wishlistdata').load(location.href + " .wishlistdata");
                     
                 

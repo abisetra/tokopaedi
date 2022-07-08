@@ -11,6 +11,7 @@ from toko.models.product import *
 from toko.models.profile import *
 from toko.models.user import *
 from django.contrib.auth.models import User
+import sweetify
 
 import random
 
@@ -82,6 +83,12 @@ def placeorder(request):
         while Order.objects.filter(tracking_no=trackno) is None:
             trackno = 'XPRS'+str(random.randint(111111111,999999999))
 
+        pay_id = str(random.randint(111111111,999999999))
+        while Order.objects.filter(payment_id=pay_id) is None:
+            pay_id = str(random.randint(111111111,999999999))
+
+        
+        neworder.payment_id = pay_id
         neworder.tracking_no = trackno
         neworder.save()
 
@@ -102,7 +109,7 @@ def placeorder(request):
         #untuk membersihkan cart user
         Cart.objects.filter(user=request.user).delete()
 
-        messages.success(request, 'Order has been placed successfully')
+        sweetify.success(request, 'Order has been placed successfully')
 
         payMode = request.POST.get('payment_mode')
         if (payMode) == "Paid by Paypal":

@@ -20,7 +20,7 @@
                             {% for item in cart %}
                                 <div class="row-cart product_data">
                                     <div class="col-md-2 my-auto">
-                                        <img src="{{ item.product.product_image.url }}"  height="70px" widht="70px" alt="Image here">
+                                        <img style="margin-left: 20%;" src="{{ item.product.product_image.url }}"  height="70px" widht="70px" alt="Image here">
                                     </div>
                                     <div class="col-md-3 my-auto">
                                         <h6>{{ item.product.name }}</h6>
@@ -41,14 +41,17 @@
                                         {% else %}
                                             <h6>Out of Stock</h6>
                                         {% endif %}
+                                        
                                        
                                     </div>
                                     <div class="col-md-2 my-auto">
                                         <button class="btn btn-danger delete-cart-item"> <i class="fa fa-trash"></i> Remove</button>
                                     </div>
+                                    
                                 </div>
+                                <hr>
                             {% endfor %}
-                            <a href="{% url 'checkout' %}" class="btn btn-outline-success float-end">Checkout </a>
+                            <a style="    margin-right: 7%;" href="{% url 'checkout' %}" class="btn btn-outline-success float-end"><i class="fa fa-shopping-cart"></i> Checkout </a>
                         {% else %}
                             <h4> Cart is empty </h4>
                         {% endif %}

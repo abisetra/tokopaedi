@@ -2,7 +2,84 @@
 
 {% block content  %}
     {% include 'toko/include/slider.html' %}
-    <hr>
     
-    <h1> Hello World  </h1>
+    
+        
+
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Trending Products</h1>
+                <hr>
+                <div class="row owl-carousel owl-theme shadow">
+                    {% for item in trending_products %}
+                    <div class="product_data item " >
+                            <div class="card  ">
+                                
+                                    <div class="card-body">
+                                        <a href="{% url 'productView' item.category.slug item.slug %}">
+                                        <div class="category-image">
+                                            <img src="{{ item.product_image.url }}" alt="Product Image" height="220" class="bw w-100" >
+                                        </div>
+                                        <hr>
+                                        
+                                        <h4 class="text-center">{{ item.name }}</h4>
+                                    </a>
+                                        <span class="float-start">Rp. <s>{{ item.original_price | stringformat:'d' }} </s></span>
+                                        <span class="float-end">Rp. {{ item.selling_price | stringformat:'d' }}</span>
+                                        <br>
+                                        <div class="row mt-2">
+                                            <div class="col-md-6">
+                                                {% csrf_token %}
+                                                <input type="hidden" class="prod_id" value="{{item.id}}">
+                                                
+                                                <div class="input-group text-center mb-3" style="height:10px; width:130px;">
+                                                    <button style="height:32px; " class="input-group-text decrement-btn">-</button>
+                                                    <input style="height:32px; " type="text" class="form-control qty-input text-center" name="quantity" value="1" >
+                                                    <button style="height:32px;" class="input-group-text increment-btn">+</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 px-0">
+                                                <span class=" mb-2">
+                                                    {% if item.quantity > 0 %}
+                                                        <button type="button" style="margin-left:25px" class="btn btn-primary btn-sm me-3 addToCartBtn"><i class="fa fa-shopping-cart"></i> Add to Cart </button>
+                                                        {% else %}
+                                                        <button type="button" class="btn btn-danger me-3 btn-sm disabled">Out of Stock</button>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                
+                            </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock content  %}
+
+{% block scripts %}
+
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop:true,
+        margin:10,
+        nav:true,
+        responsive:{
+            0:{
+                items:1
+            },
+            600:{
+                items:3
+            },
+            1000:{
+                items:4
+            }
+        }
+    })
+</script>
+
+{% endblock scripts %}
+
