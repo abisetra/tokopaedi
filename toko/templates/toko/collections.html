@@ -16,7 +16,7 @@
             <div class="row">
             {% for item in category %}
                 <div class="col-md-3" >
-                        <div class="card ">
+                        <div class="card shadow ">
                             <a href="{% url 'collectionsView' item.slug %}">
                                 <div class="card-body">
                                     
@@ -33,7 +33,5 @@
             {% endfor %}
         </div>
     </div>
-</div
-
-    {{ category }}
+</div>
 {% endblock content  %}

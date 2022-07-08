@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="container mt-3">
+<div class="container my-3">
     <form action="{% url 'placeorder' %}" method="POST">
         {% csrf_token %}
         <div class="row">
@@ -22,19 +22,19 @@
                         <div class="row checkoutform">
                             <div class="col-md-6 mt-2">
                                     <label for="">Nama Depan</label>
-                                    <input type="text" name="nama_depan" class="form-control" required placeholder="John">
+                                    <input type="text" value="{{ request.user.nama_depan }}" name="nama_depan" class="form-control" required placeholder="John">
                             </div>
                             <div class="col-md-6 mt-2">
                                     <label for="">Nama Belakang</label>
-                                    <input type="text" name="nama_belakang" class="form-control" required placeholder="Doe">
+                                    <input type="text" value="{{ request.user.nama_belakang }}" name="nama_belakang" class="form-control" required placeholder="Doe">
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Email</label>
-                                <input type="text" name="email" class="form-control" required placeholder="johndoe@tokopaedi.com">
+                                <input type="text" value="{{ request.user.email }}" name="email" class="form-control" required placeholder="johndoe@tokopaedi.com">
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Nomor Ponsel</label>
-                                <input type="number" name="ponsel" class="form-control" required placeholder="62xxxx" maxlength="15">
+                                <input type="number" value="{{ userprofile.ponsel }}" name="ponsel" class="form-control" required placeholder="62xxxx" maxlength="15">
                             </div>
                             <div class="col-md-8 mt-2">
                                 <label for="">Alamat</label>
@@ -42,19 +42,19 @@
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Kota</label>
-                                <input type="text" name="kota" class="form-control" required placeholder="Kota">
+                                <input type="text" value="{{ userprofile.kota }}" name="kota" class="form-control" required placeholder="Kota">
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Provinsi</label>
-                                <input type="text" name="provinsi" class="form-control" required placeholder="Provinsi">
+                                <input type="text" value="{{ userprofile.provinsi }}" name="provinsi" class="form-control" required placeholder="Provinsi">
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Kode Pos</label>
-                                <input type="text" name="kode_pos" class="form-control" required placeholder="57145">
+                                <input type="text" value="{{ userprofile.kode_pos }}" name="kode_pos" class="form-control" required placeholder="57145">
                             </div>
                             <div class="col-md-6 mt-2">
                                 <label for="">Password</label>
-                                <input type="password" name="password" class="form-control" required placeholder="password">
+                                <input type="password" value="{{ userprofile.password }}" name="password" class="form-control" required placeholder="password">
                             </div>
                         </div>
                         
@@ -94,7 +94,9 @@
                             </h6>
                             <input type="hidden" name="payment_mode" value="COD">
                             <div class="mt-3">
-                            <button type="submit" class="btn btn-success w-100">Checkout</button>
+                                <button type="submit" class="btn btn-success w-100">Pay with COD</button>
+                                <a href="{% url 'qris' %}" type="button" class="btn btn-primary w-100 mt-2">Pay with QRIS</a>
+                                <div id="paypal-button-container" class="mt-2"></div>
                             </div>
                             {% else %}
                             <h4>No Items in Cart</h4>
@@ -107,3 +109,116 @@
     </form>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="https://www.paypal.com/sdk/js?client-id=AVzd3bFtD--vEoluwnp67-6GjywHcQwq83u4lD_UCD1sQQS2D9Z_m4QttabiJfQa8L7VgNQ-s_QJ0S-4&currency=USD"></script>
+    <script>
+        paypal.Buttons({
+            style: {
+                shape: 'pill',
+                color: 'gold',
+                layout: 'vertical'
+            },
+
+            onClick : function(data, actions) {
+                //Validasi data
+                var nama_depan = $("[name='nama_depan']").val();
+                var nama_belakang = $('[name="nama_belakang"]').val();
+                var email = $('[name="email"]').val();
+                var ponsel = $('[name="ponsel"]').val();
+                var alamat = $('[name="alamat"]').val();
+                var kota = $('[name="kota"]').val();
+                var provinsi = $('[name="provinsi"]').val();
+                var kode_pos = $('[name="kode_pos"]').val();
+                var password = $('[name="password"]').val();
+                var token = $('[name="csrfmiddlewaretoken"]').val();
+
+
+                if(nama_depan == "" | nama_belakang == "" | email == "" | ponsel == "" | alamat == "" | kota == "" | provinsi == "" | kode_pos == "" | password == ""){
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please fill all the fields!',
+                    })
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            },
+
+          // Sets up the transaction when a payment button is clicked
+          createOrder: (data, actions) => {
+            return actions.order.create({
+              purchase_units: [{
+                amount: {
+                    value: '{{ total_price | stringformat:'d' }}' // Can also reference a variable or function
+                }
+              }]
+            });
+          },
+          // Finalize the transaction after payer approval
+          onApprove: (data, actions) => {
+            return actions.order.capture().then(function(orderData) {
+              // Successful capture! For dev/demo purposes:
+             //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+             //alert(orderData.id)
+              //const transaction = orderData.purchase_units[0].payments.captures[0];
+             // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+
+             var nama_depan = $('[name="nama_depan"]').val();
+                var nama_belakang = $('[name="nama_belakang"]').val();
+                var email = $('[name="email"]').val();
+                var ponsel = $('[name="ponsel"]').val();
+                var alamat = $('[name="alamat"]').val();
+                var kota = $('[name="kota"]').val();
+                var provinsi = $('[name="provinsi"]').val();
+                var kode_pos = $('[name="kode_pos"]').val();
+                var password = $('[name="password"]').val();
+                var token = $('[name="csrfmiddlewaretoken"]').val();
+
+             data = {
+                "nama_depan": nama_depan,
+                "nama_belakang": nama_belakang,
+                "email": email,
+                "ponsel": ponsel,
+                "alamat": alamat,
+                "kota": kota,
+                "provinsi": provinsi,
+                "kode_pos": kode_pos,
+                "password": password,
+                "payment_mode" : "Paid with Paypal",
+                "payment_id" : orderData.id,
+                csrfmiddlewaretoken: token
+            }
+            $.ajax({
+                method: "POST",
+                url: "/place-order",
+                data: data,
+                success: function(response){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Your order has been placed!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setTimeout(function(){
+                        window.location.href = "/my-orders";
+                    }, 1500);
+                }
+            });
+
+
+              // When ready to go live, remove the alert and show a success message within this page. For example:
+              // const element = document.getElementById('paypal-button-container');
+              // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+          }
+        }).render('#paypal-button-container');
+      </script>
+
+
+{% endblock scripts %}

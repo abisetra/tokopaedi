@@ -1,0 +1,50 @@
+{% extends 'toko/layouts/main.html' %}
+
+
+{% block content  %}
+
+{% load static %}
+
+<style>
+    .img-fluid {
+        max-width: 50%;
+        height: auto;
+
+    .qris {
+        --bs-gutter-x: 1.5rem;
+        --bs-gutter-y: 0;
+        display: flex;
+        flex-wrap: nowrap;
+        margin-top: calc(-1 * var(--bs-gutter-y));
+        margin-right: calc(-.5 * var(--bs-gutter-x));
+        margin-left: calc(-.5 * var(--bs-gutter-x));
+        flex-direction: row;
+        justify-content: center;
+    }
+    }
+</style>
+
+<div class="py-3">
+    <div class="container">
+        <a class="text-black" href="{% url 'home' %}"> Home / </a>
+        <a class="text-black" href="{% url 'checkout' %}"> Checkout</a>
+    </div>
+</div>
+
+<div class="container mt-3">
+        <div class="row">
+            <div class="col-md-7 ">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h6>QRIS</h6>
+                        <hr>
+                        <div class="row qris" style=" justify-content: center;">
+                            <img height='50%' widht="50%" src="{% static 'payment/qris.jpeg' %}" class="img-fluid" alt="">
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+</div>
+{% endblock content %}

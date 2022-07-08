@@ -1,13 +1,16 @@
 from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 from django.contrib.auth.decorators import login_required
 
 from toko.models.cart import *
 from toko.models.checkout import *
 from toko.models.product import *
+from toko.models.profile import *
+from toko.models.user import *
+from django.contrib.auth.models import User
 
 import random
 
@@ -25,12 +28,35 @@ def checkoutView(request):
     for item in cartitems:
         total_price += total_price + item.product.selling_price * item.product_qty
 
-    context = {'cartitems':cartitems, 'total_price':total_price}
+    userprofile = Profile.objects.filter(user=request.user).first()
+
+
+    context = {'cartitems':cartitems, 'total_price':total_price, 'userprofile':userprofile}
     return render(request, 'toko/checkout.html', context)
 
 @login_required(login_url='login')
 def placeorder(request):
     if request.method == 'POST':
+
+        currentuser = User.objects.filter(id=request.user.id).first()
+
+        if not currentuser.first_name :
+            currentuser.first_name = request.POST.get ('nama_depan')
+            currentuser.last_name = request.POST.get('nama_belakang')
+            currentuser.save()
+
+        if not Profile.objects.filter(user=request.user):
+            userprofile = Profile()
+            userprofile.user = request.user
+            userprofile.ponsel = request.POST.get('ponsel')
+            userprofile.alamat = request.POST.get('alamat')
+            userprofile.kota = request.POST.get('kota')
+            userprofile.provinsi = request.POST.get('provinsi')
+            userprofile.kode_pos = request.POST.get('kode_pos')
+            userprofile.password = request.POST.get('password')
+            userprofile.save()
+
+
         neworder = Order()
         neworder.user = request.user
         neworder.nama_depan = request.POST.get('nama_depan')
@@ -44,6 +70,7 @@ def placeorder(request):
         neworder.password = request.POST.get('password')
        
         neworder.payment_mode = request.POST.get('payment_mode')
+        neworder.payment_id = request.POST.get('payment_id')
 
         cart = Cart.objects.filter(user=request.user)
         cart_total_price = 0
@@ -77,4 +104,8 @@ def placeorder(request):
 
         messages.success(request, 'Order has been placed successfully')
 
+        payMode = request.POST.get('payment_mode')
+        if (payMode) == "Paid by Paypal":
+            return JsonResponse({'status':'Order has been placed successfully'})
     return redirect('/')
+

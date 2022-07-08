@@ -4,6 +4,21 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      
+        <div class="search-bar" style="width: 1000px; margin-left: 10%">
+          <form action="{% url 'searchproduct' %}" method="POST">
+            {% csrf_token %}
+          <div class="input-group mb-8">
+              
+            <input name="productsearch" required type="search" id='searchproduct' class="form-control" placeholder="Cari Produk">
+            <button class="input-group-text"><i class="fa fa-search"></i></button>
+          </div>
+        </form>
+        </div>
+      
+
+    
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -20,6 +35,7 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
                 <li><a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
+                <li><a class="dropdown-item" href="{% url 'myorders' %}">My Order</a>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
