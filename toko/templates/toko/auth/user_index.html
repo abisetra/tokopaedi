@@ -1,12 +1,5 @@
-{% extends 'toko/layouts/main.html' %}
-
 
 {% block content  %}
-{% if request.user.is_superuser %}
-{% include 'toko/auth/admin_index.html' %}
-{% include 'toko/auth/user_index.html' %}
-{% else %}
-    {% include 'toko/include/slider.html' %}
     
     
         
@@ -122,7 +115,6 @@
     <div class="container">
         
     </div>
-{% endif %}
     
 {% endblock content  %}
 

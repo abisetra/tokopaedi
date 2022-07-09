@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from toko.models.product import Product
 
+import sweetify
 
 def productView(request, cate_slug, prod_slug):
     if(Category.objects.filter(slug=cate_slug, status=0)):
@@ -18,5 +19,5 @@ def productView(request, cate_slug, prod_slug):
         
     else:
         sweetify.error(request, 'Category not found')
-        return redirect('collections')
     return render(request, 'toko/products/view.html', context)
+    
