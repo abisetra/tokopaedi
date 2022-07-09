@@ -145,14 +145,3 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
-
-
-MESSAGE_TAGS = {
-    messages.DEBUG: 'debug',
-    messages.INFO: 'info',
-    messages.SUCCESS: 'success',
-    messages.WARNING: 'warning',
-    messages.ERROR: 'error',
-}
-
-
