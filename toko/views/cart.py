@@ -4,7 +4,6 @@ from django.contrib import messages
 from toko.models.product import Product
 from toko.models.cart import Cart
 from django.contrib.auth.decorators import login_required
-import sweetify
 
 def addToCart(request):
     if request.method == 'POST':
@@ -34,6 +33,9 @@ def cartView(request):
         cart = Cart.objects.filter(user=request.user.id)
         context = {'cart':cart}
         return render(request, 'toko/cart.html', context)
+
+
+        
 
 def updateCart(request):
     if request.method == 'POST':

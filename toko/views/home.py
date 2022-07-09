@@ -6,5 +6,6 @@ from toko.models.product import *
 
 def home(request):
     trending_products = Product.objects.filter(trending=1)
-    context = {'trending_products':trending_products}
+    all_products = Product.objects.filter(status=0)
+    context = {'trending_products':trending_products, 'all_products':all_products}
     return render(request, 'toko/index.html', context)

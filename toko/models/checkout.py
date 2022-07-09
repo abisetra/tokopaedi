@@ -7,6 +7,7 @@ from .product import Product
 from .user import User
 import os
 import datetime
+from django.contrib.auth.models import User
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

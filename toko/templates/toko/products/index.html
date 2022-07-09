@@ -23,7 +23,7 @@
                     
                     <div class="card shadow">
                         <a href="{% url 'productView' item.category.slug item.slug %}">
-                        <div class="card-body">
+                        <div class="card-body" style="margin-bottom: 25px;">
                             <div class="category-image" >
                                 {% if item.tag %}
                                     <label class="product-viewtag">{{ item.tag }}</label>

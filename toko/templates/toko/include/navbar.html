@@ -27,8 +27,34 @@
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'collections' %}active{% endif %}" aria-current="page" href="{% url 'collections' %}">Collections</a>
           </li>
-          {% if request.user.is_authenticated %}
+          {% if request.user.is_superuser %}
             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{request.user}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <li><a class="dropdown-item" href="/admin">Admin Page</a></li>
+                  
+                  <a class="dropdown-item" href="{% url 'cart' %}">Keranjang
+                    {% if global_cartcounter > 1 %}
+                      <span class="badge badge-pill badge-danger">{{global_cartcounter}}</span>
+                    {% else %}
+                    
+                      {% endif %}
+                    </span>
+                  </a>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a></li>
+                <li><a class="dropdown-item" href="{% url 'myorders' %}">Pesanan saya</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+              </ul>
+            </li>
+
+            {% elif request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+              
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{request.user}}
               </a>
@@ -37,11 +63,7 @@
                   
                   <a class="dropdown-item" href="{% url 'cart' %}">Keranjang
                     <span class="badge float-end" style="vertical-align: baseline;background-color: red;">
-                      {% if request.user.cart.count %}
-                        {{request.user.cart.count}}
-                      {% else %}
-                        0
-                      {% endif %}
+                      {{ global_cartcounter }}
                     </span>
                   </a>
                 </li>
