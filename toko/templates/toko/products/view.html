@@ -23,7 +23,7 @@
                                 {% if products.tag %}
                                     <label class="product-viewtag">{{ products.tag }}</label>
                                 {% endif %}
-                                {% if products.quantity < 5 %}
+                                {% if products.quantity <= 10 and products.quantity > 0 %}
                                     <label class="product-viewstock">Stok Terbatas</label>
                                 {% elif products.quantity == 0 %}
                                     <label class="product-viewstock">Stok Habis</label>
@@ -50,12 +50,12 @@
                                     {{products.small_description}}
                                 </p>
                                 <hr>
-                                {% if products.quantity > 5 %}
+                                {% if products.quantity > 10 %}
                                     <label class="badge bg-success">Stok Tersedia : {{products.quantity}}</label>
-                                {% elif products.quantity < 5 %}
+                                {% elif products.quantity <= 10 and products.quantity > 0 %}
                                     <label class="badge text-black bg-warning">Stok Tersisa : {{products.quantity}}</label>
-                                {% else %}
-                                    <label class="badge bg-danger">Stok Habis</label>
+                                {% elif products.quantity == 0 %}
+                                    <label class="badge bg-danger">Stok Habis {{products.quantity}}</label>
                                 {% endif %}
                                 <div class="row mt-2">
                                     <div class="col-md-3">

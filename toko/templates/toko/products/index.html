@@ -28,10 +28,10 @@
                                 {% if item.tag %}
                                     <label class="product-viewtag">{{ item.tag }}</label>
                                 {% endif %}
-                                {% if item.quantity < 5 %}
+                                {% if item.quantity <= 10 and item.quantity > 0 %}
                                     <label class="product-viewstock">Stok Terbatas</label>
                                 {% elif item.quantity == 0 %}
-                                    <label class="item-viewstock">Stok Habis</label>
+                                    <label class="product-viewstock">Stok Habis</label>
                                 {% endif %}
                                 <img  src="{{ item.product_image.url }}" style="" height="240" alt="Product Image" class="bw w-100"  >
                             </div>
