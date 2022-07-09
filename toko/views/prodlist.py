@@ -5,6 +5,7 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 from toko.models.product import Product
+import sweetify
 
 def productList(request):
     products = Product.objects.filter(status=0).values_list('name', flat=True)
@@ -23,7 +24,7 @@ def searchproduct(request):
             if product:
                 return redirect('collections/'+product.category.slug+'/'+product.slug)
             else:
-                messages.info(request, 'Product not found')
+                sweetify.info(request, 'Product not found')
                 return redirect(request.META.get('HTTP_REFERER')) 
 
 

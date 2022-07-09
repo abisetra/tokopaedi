@@ -47,10 +47,15 @@
 
             .category-image > img.bw {
                 filter: grayscale(100%);
+                transition: filter .23s ease-in-out;
+
+
             }
 
             .category-image > img.bw:hover {
                 filter: grayscale(0%);
+                -webkit-filter: grayscale(0%);
+                -moz-filter: grayscale(0%);
             }
 
             .carousel-inner > .carousel-item > img {

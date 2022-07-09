@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from toko.models.category import Category
 from toko.models.product import Product
 from django.contrib import messages
+import sweetify
 
 # Create your views here.
 
@@ -18,6 +19,6 @@ def collectionsView(request, slug):
         context = {'products':products, 'category':category}
         return render(request, 'toko/products/index.html', context)
     else:
-        messages.error(request, 'Category not found')
+        sweetify.error(request, 'Category not found')
         return redirect('collections')
         
