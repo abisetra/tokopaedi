@@ -21,11 +21,18 @@
                         <div class="row ">
                             <div class="col-md-4">
                                 {% if products.tag %}
-                                    <label class="product-viewtag">{{products.tag}}</label>
+                                    <label class="product-viewtag">{{ products.tag }}</label>
+                                {% endif %}
+                                {% if products.quantity < 5 %}
+                                    <label class="product-viewstock">Stok Terbatas</label>
+                                {% elif products.quantity == 0 %}
+                                    <label class="product-viewstock">Stok Habis</label>
                                 {% endif %}
                                     <img src= "{{ products.product_image.url}}" class="w-100" style="width: auto; height: 400px;"  alt="image">
+                                    
                             </div>
                             <div class="col-md-8">
+                                
                                 <h2 class="mb-0">
                                     {{products.name}}
                                     {% if products.trending %}
@@ -33,22 +40,28 @@
                                     {% endif %}
                                 </h2>
                                 <hr>
-                                <label class="me-3 ">Original Price :  Rp. <s> {{ products.original_price | stringformat:'d'}}</s></label>
-                                <label class="fw-bold ">Selling Price : Rp. {{ products.selling_price | stringformat:'d'}}</label>
+                                {% if products.original_price == 0 %}
+                                <label class="fw-bold text-success">Harga :  Rp. {{ products.selling_price | stringformat:'d'}}</label>
+                                {% else %}
+                                <label class="me-3 fw-bold text-danger">Harga :  Rp. <s> {{ products.original_price | stringformat:'d'}}</s></label>
+                                <label class="fw-bold text-success">Harga : Rp. {{ products.selling_price | stringformat:'d'}}</label>
+                                {% endif %}
                                 <p class="mt3">
                                     {{products.small_description}}
                                 </p>
                                 <hr>
-                                {% if products.quantity > 0 %}
-                                    <label class="badge bg-success">In Stock</label>
+                                {% if products.quantity > 5 %}
+                                    <label class="badge bg-success">Stok Tersedia : {{products.quantity}}</label>
+                                {% elif products.quantity < 5 %}
+                                    <label class="badge text-black bg-warning">Stok Tersisa : {{products.quantity}}</label>
                                 {% else %}
-                                    <label class="badge bg-danger">Out of Stock</label>
+                                    <label class="badge bg-danger">Stok Habis</label>
                                 {% endif %}
                                 <div class="row mt-2">
                                     <div class="col-md-3">
                                         {% csrf_token %}
                                         <input type="hidden" class="prod_id" value="{{products.id}}">
-                                        <label for="Quantity">Quantity</label>
+                                        <label for="Quantity">Quantity :</label>
                                         <div class="input-group text-center mb-3" style="width:130px;">
                                             <button class="input-group-text decrement-btn">-</button>
                                             <input type="text" class="form-control qty-input text-center" name="quantity" value="1">
@@ -58,9 +71,9 @@
                                     <div class="col-md-9">
                                         <br/>
                                         {% if products.quantity > 0 %}
-                                            <button type="button" class="btn btn-primary me-3 float-start addToCartBtn">Add to Cart <i class="fa fa-shopping-cart"></i> </button>
+                                            <button type="button" class="btn btn-primary me-3 float-end addToCartBtn"><i class="fa fa-shopping-cart"></i> Tambahkan Keranjang</button>
                                         {% endif %}
-                                        <button type="button" class="btn btn-success me-3 addToWishlistBtn float-start">Add to Wishlist <i class="fa fa-heart"></i> </button>
+                                        <button type="button" class="btn btn-success me-3 addToWishlistBtn float-end"><i class="fa fa-heart"></i> Tambahkan Wishlist</button>
                                 
                                     </div>
                                 </div>
@@ -68,7 +81,7 @@
                         </div>
                         <div class="col-md-12">
                             <hr>
-                            <h3 class="fw-bold">Product Description</h3>
+                            <h3 class="fw-bold">Deskripsi Produk</h3>
                             <p>
                                 {{products.description}}
                             </p>

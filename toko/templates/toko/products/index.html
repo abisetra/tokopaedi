@@ -25,12 +25,26 @@
                         <a href="{% url 'productView' item.category.slug item.slug %}">
                         <div class="card-body">
                             <div class="category-image" >
+                                {% if item.tag %}
+                                    <label class="product-viewtag">{{ item.tag }}</label>
+                                {% endif %}
+                                {% if item.quantity < 5 %}
+                                    <label class="product-viewstock">Stok Terbatas</label>
+                                {% elif item.quantity == 0 %}
+                                    <label class="item-viewstock">Stok Habis</label>
+                                {% endif %}
                                 <img  src="{{ item.product_image.url }}" style="" height="240" alt="Product Image" class="bw w-100"  >
                             </div>
                             <hr>
                             <h4 class="text-center">{{ item.name }}</h4>
+                            {% if item.original_price == 0 %}
+                            <span class="float-start">Rp. {{ item.selling_price | stringformat:'d' }}</span>
+                            {% else %}
+                            
                             <span class="float-start">Rp. <s>{{ item.original_price | stringformat:'d' }}</s></span>
+                            
                             <span class="float-end">Rp. {{ item.selling_price | stringformat:'d' }}</span>
+                            {% endif %}
                         </div>
                     </a>
                     </div>
@@ -38,7 +52,5 @@
             {% endfor %}
         </div>
     </div>
-</div
-
-    {{ category }}
+</div>
 {% endblock content  %}

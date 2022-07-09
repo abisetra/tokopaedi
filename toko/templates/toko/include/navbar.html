@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">TOKOPAEDI</a>
+      <a class="navbar-brand" href="{% url 'home' %}">WARUNG ONLINE</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -33,9 +33,20 @@
                 {{request.user}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'cart' %}">Cart</a>
-                <li><a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a>
-                <li><a class="dropdown-item" href="{% url 'myorders' %}">My Order</a>
+                <li>
+                  
+                  <a class="dropdown-item" href="{% url 'cart' %}">Keranjang
+                    <span class="badge float-end" style="vertical-align: baseline;background-color: red;">
+                      {% if request.user.cart.count %}
+                        {{request.user.cart.count}}
+                      {% else %}
+                        0
+                      {% endif %}
+                    </span>
+                  </a>
+                </li>
+                <li><a class="dropdown-item" href="{% url 'wishlist' %}">Wishlist</a></li>
+                <li><a class="dropdown-item" href="{% url 'myorders' %}">Pesanan saya</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>

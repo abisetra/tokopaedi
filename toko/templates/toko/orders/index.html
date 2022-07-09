@@ -25,8 +25,8 @@
                                 <thead>
                                     <tr>
                                         <th>Order Date</th>   
-                                        <th>Tracking Number</th>   
-                                        <th>Total Price</th>   
+                                        <th>Resi Pengiriman</th>   
+                                        <th>Total Harga</th>   
                                         <th>Status</th>   
                                         <th>Action</th>   
                                     </tr>
@@ -40,18 +40,18 @@
                                         <td> Rp. {{ item.total_price | stringformat:'d' }} </td>   
                                        
                                         {% if item.status == "Pending"  %} 
-                                        <td class="text-warning" style="backgorund-color: red ;"> {{ item.status }}</td>
+                                        <td class="badge bg-primary" style="margin-left: 25%; margin-top: 7.5%;" > {{ item.status }}</td>
                                         {% elif item.status == "Cancelled"  %}
-                                        <td class="text-danger"> {{ item.status }} </td>
+                                        <td class="badge bg-danger" style="margin-left: 25%; margin-top: 7.5%;"> {{ item.status }} </td>
                                         {% elif item.status == "Delivered"  %}
-                                        <td class="text-success"> {{ item.status }} </td>
+                                        <td class="badge bg-success" style="margin-left: 25%; margin-top: 7.5%;"> {{ item.status }} </td>
                                         {% elif item.status == "Processing"  %}
-                                        <td class="text-primary"> {{ item.status }} </td>
+                                        <td class="badge text-black bg-warning" style="margin-left: 25%; margin-top: 7.5%;"> {{ item.status }} </td>
                                         {% endif %}  
                                         <td>
                                             <a href={% url 'orderview' item.tracking_no %}>
-                                                <button value="View Detail" class="btn btn-primary">
-                                                    View
+                                                <button style="margin-left: 25%;" value="View Detail" class="btn btn-primary">
+                                                    Detail
                                                     <i class="fa fa-eye"></i>
                                                 </button>
                                             </a>
