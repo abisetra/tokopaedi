@@ -120,7 +120,7 @@
         });
     });
 </script>
-    <script src="https://www.paypal.com/sdk/js?client-id=AVzd3bFtD--vEoluwnp67-6GjywHcQwq83u4lD_UCD1sQQS2D9Z_m4QttabiJfQa8L7VgNQ-s_QJ0S-4&currency=IDR"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AVzd3bFtD--vEoluwnp67-6GjywHcQwq83u4lD_UCD1sQQS2D9Z_m4QttabiJfQa8L7VgNQ-s_QJ0S-4&currency=USD"></script>
     <script>
         paypal.Buttons({
             style: {
@@ -162,7 +162,7 @@
             return actions.order.create({
               purchase_units: [{
                 amount: {
-                    value: '{{ total_price | stringformat:'d' }}' // Can also reference a variable or function
+                    value: '{{ total_price }}' // Can also reference a variable or function
                 }
               }]
             });

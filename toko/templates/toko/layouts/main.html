@@ -9,11 +9,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>
-            {% block title %} 
-
-            {% endblock title %}
-        </title> 
+        <title>Tokopaedi</title>
+        <link rel="icon" href="{% static 'images/logo.png' %}" type="image/x-icon">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,7 +42,7 @@
 
             
 
-            .category-image > img.bw {
+            {% comment %} .category-image > img.bw {
                 filter: grayscale(100%);
                 transition: filter .23s ease-in-out;
 
@@ -56,7 +53,7 @@
                 filter: grayscale(0%);
                 -webkit-filter: grayscale(0%);
                 -moz-filter: grayscale(0%);
-            }
+            } {% endcomment %}
 
             .carousel-inner > .carousel-item > img {
                 margin: auto;

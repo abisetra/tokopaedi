@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <h1>Trending Products</h1>
                 <hr>
-                <div class="row owl-carousel owl-theme shadow">
+                <div class="row owl-carousel owl-theme">
                     {% for item in trending_products %}
                     <div class="product_data item " >
                             <div class="card  ">
@@ -64,9 +64,9 @@
 
 <script>
     $('.owl-carousel').owlCarousel({
-        loop:true,
+        loop:false,
         margin:10,
-        nav:true,
+        nav:false,
         responsive:{
             0:{
                 items:1
