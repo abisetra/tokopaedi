@@ -19,14 +19,14 @@ def addToWishlist(request):
             product_check = Product.objects.get(id=prod_id)
             if (product_check):
                 if(Wishlist.objects.filter(user=request.user.id, product_id=prod_id)):
-                    return JsonResponse({'status':'Product Already in Wishlist', 'message':'Product Already in Wishlist'})
+                    return JsonResponse({'status':'Produk sudah ada dalam Wishlist', 'message':'Produk sudah ada dalam Wishlist'})
                 else:
                     Wishlist.objects.create(user=request.user, product_id=prod_id)
-                    return JsonResponse({'status':'Product added to wishlist', 'message':'Product added to wishlist'})
+                    return JsonResponse({'status':'Produk ditambahkan ke wishlist', 'message':'Produk ditambahkan ke wishlist'})
             else:
-                return JsonResponse({'status':'Product not found', 'message':'Product not found'})
+                return JsonResponse({'status':'Produk tidak ditemukan', 'message':'Produk tidak ditemukan'})
         else:
-            return JsonResponse({'status':'Login to continue', 'message':'Login to continue'})
+            return JsonResponse({'status':'Login untuk melanjutkan', 'message':'Login untuk melanjutkan'})
     return redirect('/')
 
 def deleteWishlistItem(request):
@@ -36,10 +36,10 @@ def deleteWishlistItem(request):
             if(Wishlist.objects.filter(user=request.user, product_id=prod_id)):
                 wishlistitem = Wishlist.objects.get(product_id=prod_id)
                 wishlistitem.delete()
-                return JsonResponse({'status':'Product Deleted Successfully', 'message':'Product Deleted Successfully'})
+                return JsonResponse({'status':'Product dihapus dari Wishlist', 'message':'Product dihapus dari Wishlist'})
             else:
-                return JsonResponse({'status':'Product not found', 'message':'Product not found'})
+                return JsonResponse({'status':'Produk tidak ditemukan', 'message':'Produk tidak ditemukan'})
         else:
-            return JsonResponse({'status':'Login to continue', 'message':'Login to continue'})
+            return JsonResponse({'status':'Login untuk melanjutkan', 'message':'Login untuk melanjutkan'})
     return redirect('/')
 

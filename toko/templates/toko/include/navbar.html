@@ -37,8 +37,9 @@
                   <li><a class="dropdown-item" href="/admin">Admin Page</a></li>
                   
                   <a class="dropdown-item" href="{% url 'cart' %}">Keranjang
-                    {% if global_cartcounter > 1 %}
-                      <span class="badge badge-pill badge-danger">{{global_cartcounter}}</span>
+                    {% if global_cartcounter >= 1 %}
+                      <span class="badge float-end" style="vertical-align: baseline;background-color: red;"</span>
+                        {{ global_cartcounter }}
                     {% else %}
                     
                       {% endif %}
@@ -62,8 +63,13 @@
                 <li>
                   
                   <a class="dropdown-item" href="{% url 'cart' %}">Keranjang
+                    
+                      {% if global_cartcounter >= 1 %}
                     <span class="badge float-end" style="vertical-align: baseline;background-color: red;">
                       {{ global_cartcounter }}
+                      {% else %}
+                    
+                      {% endif %}
                     </span>
                   </a>
                 </li>

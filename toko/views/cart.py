@@ -22,7 +22,7 @@ def addToCart(request):
                     else:
                         return JsonResponse({'message':'Stok hanya tersisa ' + str(product_check.quantity)})
             else:
-                return JsonResponse({ 'message':'Product not found'})
+                return JsonResponse({ 'message':'Produk tidak ditemukan'})
 
         else:
             return JsonResponse({'status':'Login untuk melanjutkan'})
@@ -45,7 +45,7 @@ def updateCart(request):
             cart = Cart.objects.get(product_id=prod_id, user=request.user)
             cart.product_qty = prod_qty
             cart.save()
-            return JsonResponse({'status':'Product Updated Successfully', 'message':'Product Updated Successfully'})
+            return JsonResponse({'status':'Keranjang berhasil diperbarui', 'message':'Keranjang berhasil diperbarui'})
     return redirect('/')
 
 def deleteCartItem(request):
@@ -54,5 +54,5 @@ def deleteCartItem(request):
         if(Cart.objects.filter(user=request.user, product_id=prod_id)):
             cart = Cart.objects.get(product_id=prod_id, user=request.user)
             cart.delete()
-            return JsonResponse({'status':'Product Deleted Successfully', 'message':'Product Deleted Successfully'})
+            return JsonResponse({'status':'Produk sukses dihapus dari keranjang', 'message':'Produk sukses dihapus dari keranjang'})
     return redirect('/') 
