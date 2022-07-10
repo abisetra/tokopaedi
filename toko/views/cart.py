@@ -12,20 +12,20 @@ def addToCart(request):
             product_check = Product.objects.get(id=prod_id)
             if (product_check):
                 if(Cart.objects.filter(user=request.user.id, product_id=prod_id)):
-                    return JsonResponse({'status':'Product Already in Cart', 'message':'Product Already in Cart'})
+                    return JsonResponse({'status':'Produk sudah ada dalam keranjang', 'message':'Produk sudah ada dalam keranjang'})
                 else:
                     prod_qty = int(request.POST.get('product_qty'))
 
                     if product_check.quantity >= prod_qty:
                         Cart.objects.create(user=request.user, product_id=prod_id, product_qty=prod_qty)
-                        return JsonResponse({'status':'Product added Successfully', 'message':'Product added Successfully'})
+                        return JsonResponse({'status':'Produk sukses ditambahkan', 'message':'Produk sukses ditambahkan'})
                     else:
-                        return JsonResponse({'status':'Only ' + str(product_check.quantity) +" quantity available", 'message':'Product Quantity is not available'})
+                        return JsonResponse({'message':'Stok hanya tersisa ' + str(product_check.quantity)})
             else:
-                return JsonResponse({'status':'error', 'message':'Product not found'})
+                return JsonResponse({ 'message':'Product not found'})
 
         else:
-            return JsonResponse({'status':'Login to Continue', 'message':'You are not logged in'})
+            return JsonResponse({'status':'Login untuk melanjutkan'})
                     
     return redirect('/')
 @login_required(login_url='login')

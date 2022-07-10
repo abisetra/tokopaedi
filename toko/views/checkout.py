@@ -109,10 +109,10 @@ def placeorder(request):
         #untuk membersihkan cart user
         Cart.objects.filter(user=request.user).delete()
 
-        sweetify.success(request, 'Order has been placed successfully')
+        sweetify.success(request, 'Pesanan berhasil ditambahkan', button='OK', timer=2000)
 
         payMode = request.POST.get('payment_mode')
         if (payMode) == "Paid by Paypal":
-            return JsonResponse({'status':'Order has been placed successfully'})
+            return JsonResponse({'status':'Pesanan berhasil ditambahkan'})
     return redirect('/')
 
