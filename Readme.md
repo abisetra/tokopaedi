@@ -2,7 +2,7 @@
 
 
 
-# Tokopaedi
+# Warung online
 Web based e-commerce dengan implementasi Django 4.0.3[^1]
 
 > Django 4.0.3[^1]
